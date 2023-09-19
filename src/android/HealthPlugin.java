@@ -411,6 +411,7 @@ public class HealthPlugin extends CordovaPlugin {
         authReqCallbackCtx.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
       } else {
         // launches activity for auth, resolved in onActivityResult
+        this.cordova.setActivityResultCallback(this);
         GoogleSignIn.requestPermissions(
           this.cordova.getActivity(), // your activity
           REQUEST_OAUTH,
@@ -441,7 +442,6 @@ public class HealthPlugin extends CordovaPlugin {
   // if autoresolve is set, it will try to get authorisation from the user
   // also includes some OS dynamic permissions if needed (eg location)
   private void checkAuthorization(final JSONArray args, final CallbackContext callbackContext, final boolean autoresolve) throws JSONException {
-    this.cordova.setActivityResultCallback(this);
     authReqCallbackCtx = callbackContext;
     authAutoresolve = autoresolve;
 
